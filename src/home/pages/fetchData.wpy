@@ -5,6 +5,11 @@
   border-radius: 50%;
   border: 1rpx solid #ddd;
 }
+.bg {
+  background: rgba($color: #000000, $alpha: 0.6);
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
 </style>
 <template>
   <view class="container">
@@ -14,7 +19,9 @@
       <image class="avatar" src="{{userInfo.avatar_url}}">
       </image>
     </block>
-    <loading visible="{{isFetching}}" />
+    <block wx:if="{{isFetching}}">
+      <loading custom-class="bg" color="#fff" />
+    </block>
   </view>
 </template>
 
@@ -45,7 +52,7 @@ export default class fetchData extends wepy.page {
     navigationBarTitleText: '请求api',
     usingComponents: {
       spacing: '/components/wx/spacing/spacing',
-      loading: '/components/wx/loading/loading'
+      loading: '/components/vant/loading/index'
     }
   };
   onLoad(options) {
