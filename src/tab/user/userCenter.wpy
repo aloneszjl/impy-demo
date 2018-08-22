@@ -1,0 +1,63 @@
+<style lang="scss">
+.avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  border: 1rpx solid #ddd;
+}
+
+.nickName {
+  color: #aaa;
+}
+</style>
+<template>
+  <view class="container">
+    <image wx:if="{{isAuthenticated}}" class="avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <spacing height="20"></spacing>
+    <text class="nickName">{{userInfo.nickName||'未登录'}}</text>
+    <block wx:if="{{isAuthenticated}}">
+      <spacing height="20"></spacing>
+      <button @tap="logout">登出</button>
+    </block>
+    <block wx:else>
+      <spacing height="20"></spacing>
+      <button @tap="goLogin">去登录</button>
+    </block>
+    <spacing height="20"></spacing>
+    <button @tap="goAbout">关于</button>
+  </view>
+</template>
+
+<script >
+import wepy from 'wepy';
+import { connect } from 'impy-redux';
+import { isAuthenticated, getAccount, logout } from '@/containers/auth/ducks';
+import { goLogin } from '@/utils/navigation';
+
+@connect(
+  state => ({
+    isAuthenticated: isAuthenticated(state),
+    userInfo: getAccount(state) || {}
+  }),
+  {
+    logout
+  }
+)
+export default class UserCenter extends wepy.page {
+  config = {
+    navigationBarTitleText: '首页',
+    usingComponents: {
+      spacing: '/components/wx/spacing/spacing'
+    }
+  };
+  methods = {
+    goLogin,
+    goAbout() {
+      wepy.navigateTo({
+        url: `/user/pages/about`
+      });
+    }
+  };
+  onload() {}
+}
+</script>

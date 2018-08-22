@@ -1,0 +1,24 @@
+<style lang="scss">
+.text {
+  color: #aaa;
+}
+</style>
+<template>
+  <view class="flex">
+    <text class="text">{{text}}</text>
+  </view>
+</template>
+
+<script >
+import wepy from 'wepy';
+
+export default class Text extends wepy.component {
+  props = {
+    text: {
+      type: String,
+      default: '你好吗？'
+    }
+  };
+  onload() {}
+}
+</script>

@@ -1,0 +1,25 @@
+<style lang="scss">
+.avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  border: 1rpx solid #ddd;
+}
+</style>
+<template>
+  <view class="container">
+    <text>关于impy</text>
+  </view>
+</template>
+
+<script >
+import wepy from 'wepy';
+
+export default class About extends wepy.page {
+  config = {
+    navigationBarTitleText: '关于'
+  };
+
+  onload() {}
+}
+</script>

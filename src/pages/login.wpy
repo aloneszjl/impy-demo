@@ -1,0 +1,39 @@
+<style lang="scss">
+.size {
+  font-size: 30px;
+  font-weight: bolder;
+  color: white;
+}
+</style>
+<template>
+  <view class="container">
+    <block wx:if="{{isAuthenticated}}">
+      <button @tap="logout">登出</button>
+    </block>
+    <block wx:else>
+      <button open-type="getUserInfo" @getuserinfo="login">获取用户信息</button>
+    </block>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import { connect } from 'impy-redux';
+import { login, logout, isAuthenticated } from '@/containers/auth/ducks';
+
+@connect(
+  state => ({
+    isAuthenticated: isAuthenticated(state)
+  }),
+  {
+    login,
+    logout
+  }
+)
+export default class Login extends wepy.page {
+  config = {
+    navigationBarTitleText: '登录'
+  };
+  onload() {}
+}
+</script>

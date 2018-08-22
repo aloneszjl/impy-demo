@@ -1,0 +1,65 @@
+<style lang="scss">
+.avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin-bottom: 50rpx;
+  border-radius: 50%;
+  border: 1rpx solid #ddd;
+}
+
+.nickName {
+  color: #aaa;
+}
+</style>
+<template>
+  <view class="container">
+    <image class="avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <text class="nickName">首页</text>
+    <wepy-text text="因为同个实例，所以动态改变了"></wepy-text>
+    <wepy-text text="上面的会跟这个一样"></wepy-text>
+    <spacing height="20"></spacing>
+    <wepy-text2 text="wepy组件不太友好，建议使用原生组件"></wepy-text2>
+    <spacing height="20"></spacing>
+    <input value="{{userName}}" @input="userName" placeholder="输入github用户名" />
+    <spacing height="20"></spacing>
+    <button @tap="goFetchData">使用redux管理api获取的数据</button>
+  </view>
+</template>
+
+<script >
+import wepy from 'wepy';
+import get from 'lodash/get';
+import { connect } from 'impy-redux';
+import { isAuthenticated, getAccount } from '@/containers/auth/ducks';
+import Text from '@/components/wepy/text/text';
+
+@connect(state => ({
+  isAuthenticated: isAuthenticated(state),
+  userInfo: getAccount(state) || {}
+}))
+export default class Home extends wepy.page {
+  config = {
+    navigationBarTitleText: '首页',
+    usingComponents: {
+      spacing: '/components/wx/spacing/spacing'
+    }
+  };
+  components = {
+    'wepy-text': Text,
+    'wepy-text2': Text
+  };
+  data = {
+    userName: 'aloneszjl'
+  };
+  methods = {
+    goFetchData() {
+      wepy.navigateTo({
+        url: `/home/pages/fetchData?userName=${this.userName}`
+      });
+    },
+    userName(e) {
+      this.userName = get(e, 'detail.value');
+    }
+  };
+}
+</script>

@@ -1,0 +1,57 @@
+<style lang="scss">
+.avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  border: 1rpx solid #ddd;
+}
+</style>
+<template>
+  <view class="container">
+    <text>{{userName}}</text>
+    <spacing height="20"></spacing>
+    <block wx:if="{{!!userInfo}}">
+      <image class="avatar" src="{{userInfo.avatar_url}}">
+      </image>
+    </block>
+    <loading visible="{{isFetching}}" />
+  </view>
+</template>
+
+<script >
+import wepy from 'wepy';
+import { connect } from 'impy-redux';
+import {
+  githubUserDucks,
+  getGithubUserInfo,
+  isFetchingData
+} from '../ducks/fetchData';
+
+const mapStateToProps = (state, { userName }) => ({
+  userName,
+  userInfo: getGithubUserInfo(state, { userName }),
+  isFetching: isFetchingData(state, { userName })
+});
+
+const mapDispatchToProps = {
+  githubUserFetch: githubUserDucks.requestActions.fetch
+};
+
+const unloadProps = ['userInfo'];
+
+@connect(mapStateToProps, mapDispatchToProps, unloadProps)
+export default class fetchData extends wepy.page {
+  config = {
+    navigationBarTitleText: '请求api',
+    usingComponents: {
+      spacing: '/components/wx/spacing/spacing',
+      loading: '/components/wx/loading/loading'
+    }
+  };
+  onLoad(options) {
+    const { userName } = options;
+    const { githubUserFetch } = this.methods;
+    githubUserFetch({ userName });
+  }
+}
+</script>

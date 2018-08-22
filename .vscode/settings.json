@@ -1,0 +1,13 @@
+{
+  "prettier.singleQuote": true,
+  "vetur.validation.template": false,
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatterOptions": {
+    "wrap_attributes": "force-expand-multiline"
+  },
+  "eslint.options": {
+    "extensions": [".js", ".vue", ".wpy", ".wxs"]
+  },
+  "eslint.autoFixOnSave": true,
+  "editor.formatOnPaste": true
+}

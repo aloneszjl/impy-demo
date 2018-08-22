@@ -1,0 +1,19 @@
+<block wx:if="{{visible}}">
+    <view class="backdrop">
+        <view class="lds-spinner">
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+            <view></view>
+        </view>
+        <spacing height="64" />
+    </view>
+</block>

@@ -1,0 +1,55 @@
+<style lang="scss" src="./styles/app.scss">
+</style>
+
+<script>
+import wepy from 'wepy';
+import 'wepy-async-function';
+import { setStore } from 'impy-redux';
+import configureStore from './configureStore';
+import interceptor from './utils/interceptor';
+
+const store = configureStore();
+setStore(store);
+
+export default class extends wepy.app {
+  config = {
+    pages: ['tab/home/home', 'tab/user/userCenter', 'pages/login'],
+    subPackages: [
+      {
+        root: 'home/pages/',
+        pages: ['fetchData']
+      },
+      {
+        root: 'user/pages/',
+        pages: ['about']
+      }
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      list: [
+        {
+          pagePath: 'tab/home/home',
+          text: '首页'
+        },
+        {
+          pagePath: 'tab/user/userCenter',
+          text: '个人中心'
+        }
+      ]
+    }
+  };
+
+  constructor() {
+    super();
+    this.use('requestfix');
+    interceptor(this, store);
+  }
+
+  onLaunch() {}
+}
+</script>

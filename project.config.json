@@ -1,0 +1,13 @@
+{
+  "description": "A WePY project",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "appid": "wxa5af9195ef13c15a",
+  "projectname": "referral-appx",
+  "miniprogramRoot": "./dist"
+}
