@@ -19,9 +19,9 @@
       <image class="avatar" src="{{userInfo.avatar_url}}">
       </image>
     </block>
-    <block wx:if="{{isFetching}}">
+    <view hidden="{{!isFetching}}">
       <loading custom-class="bg" color="#fff" />
-    </block>
+    </view>
   </view>
 </template>
 
